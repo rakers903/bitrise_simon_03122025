@@ -53,29 +53,7 @@ class CocktailRepositoryImpl @Inject constructor(
         try {
             cocktailDao.save(CocktailEntity(id, liked))
         } catch(e: Exception) {
-            Log.d("CocktaiLRepo","Could not save Cocktail")
+            Log.d("CocktailRepo","Could not save Cocktail")
         }
     }
 }
-
-
-
-//        try {
-//            val cocktailResponse = cocktailApi.getCocktails(searchQuery)
-//            if(cocktailResponse.isSuccessful) {
-//                val body = cocktailResponse.body()
-//                if(body != null) {
-//                    if(body.cocktails != null) {
-//                        return UIState.SUCCESS(body.cocktails.toCocktailList())
-//                    }
-//                    Log.d("CocktailRepoImpl", "Cocktails is null")
-//                } else {
-//                    return UIState.ERROR("cocktailResponse was successful but the body is null")
-//                }
-//            }
-//            return UIState.ERROR("An unknown error has occurred in cocktailAPI: findByFirstLetter")
-//        } catch(e: Exception) {
-//            e.printStackTrace()
-//            Log.d("CocktailRepositoryImpl", e.message.toString())
-//            return UIState.ERROR("Could not find cocktail: findByFirstLetter")
-//        }
