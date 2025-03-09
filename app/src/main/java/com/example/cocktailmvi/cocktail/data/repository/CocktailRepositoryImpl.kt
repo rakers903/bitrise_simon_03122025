@@ -28,7 +28,7 @@ class CocktailRepositoryImpl @Inject constructor(
                     if (body.cocktails != null) {
                         val cocktailList = body.cocktails.toCocktailList()
                         val cocktailListWithLikes = cocktailList.map { cocktail ->
-                            val isLiked = cocktailLikes.any { it.id  == cocktail.id }
+                            val isLiked = cocktailLikes.any { it.id  == cocktail.id && it.isLiked }
                             cocktail.copy(
                                 isLiked = isLiked
                             )

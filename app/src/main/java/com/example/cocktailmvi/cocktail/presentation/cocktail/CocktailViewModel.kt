@@ -32,13 +32,13 @@ class CocktailViewModel @Inject constructor(
             is CocktailAction.UpdateSearch -> updateSearch(action.text)
         }
     }
-
     init {
         search("a")
     }
 
     private fun toggleLike(id: String, liked: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
+            Log.d("Liked", liked.toString())
             cocktailRepository.saveLike(id, liked)
             state = state.copy(
                 cocktailListState = CocktailListState(
