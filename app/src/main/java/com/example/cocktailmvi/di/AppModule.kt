@@ -1,8 +1,11 @@
 package com.example.cocktailmvi.di
 
+import android.app.Application
+import androidx.room.Room
+import com.example.cocktailmvi.cocktail.data.local.AppDatabase
+import com.example.cocktailmvi.cocktail.data.local.cocktail.CocktailDao
 import com.example.cocktailmvi.cocktail.data.remote.CocktailApi
 import com.example.cocktailmvi.cocktail.data.repository.CocktailRepositoryImpl
-import com.example.cocktailmvi.cocktail.domain.Cocktail
 import com.example.cocktailmvi.cocktail.domain.repository.CocktailRepository
 import dagger.Module
 import dagger.Provides
@@ -29,11 +32,33 @@ class AppModule {
 
     @Provides
     @Singleton
+    fun providesCocktailDatabase(
+        application: Application
+    ): AppDatabase {
+        return Room.databaseBuilder(
+            application,
+            AppDatabase::class.java,
+            "cocktails"
+        )
+        .build()
+    }
+
+    @Provides
+    @Singleton
+    fun providesCocktailDao(
+        appDatabase: AppDatabase
+    ): CocktailDao = appDatabase.cocktailDao()
+
+    @Provides
+    @Singleton
     fun providesCocktailRepository(
-        cocktailApi: CocktailApi
+        cocktailApi: CocktailApi,
+        cocktailDao: CocktailDao
     ): CocktailRepository {
         return CocktailRepositoryImpl(
-            cocktailApi = cocktailApi
+            cocktailApi = cocktailApi,
+            cocktailDao = cocktailDao
         )
     }
+
 }

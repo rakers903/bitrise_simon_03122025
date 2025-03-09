@@ -55,6 +55,7 @@ dependencies {
     // HILT
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     // RETROFIT
     val retrofitVersion = "2.11.0"
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
@@ -63,11 +64,12 @@ dependencies {
     val nav_version = "2.8.8"
     implementation("androidx.navigation:navigation-compose:$nav_version")
     // SERIALIZATION
-    // JSON serialization library, works with the Kotlin serialization plugin
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
-
-
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    // ROOM
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

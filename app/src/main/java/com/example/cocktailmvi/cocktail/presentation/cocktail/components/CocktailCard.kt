@@ -61,7 +61,7 @@ fun CocktailCard(
                     modifier = Modifier
                         .size(28.dp)
                         .clickable {
-                            onAction(CocktailAction.ToggleLike(state.id))
+                            onAction(CocktailAction.ToggleLike(state.id, !state.isLiked))
                         },
                     tint = if(state.isLiked) colorResource(R.color.yellow) else Color.Gray,
                 )

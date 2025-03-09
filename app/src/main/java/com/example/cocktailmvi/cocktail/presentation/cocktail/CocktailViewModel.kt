@@ -13,6 +13,7 @@ import com.example.cocktailmvi.cocktail.presentation.cocktail.state.CocktailStat
 import com.example.cocktailmvi.cocktail.presentation.cocktail.state.SearchBarState
 import com.example.cocktailmvi.util.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.http.Query
 import javax.inject.Inject
@@ -26,7 +27,7 @@ class CocktailViewModel @Inject constructor(
     fun onAction(action: CocktailAction) {
         when(action) {
             is CocktailAction.GoBack -> {}
-            is CocktailAction.ToggleLike -> toggleLike(action.id)
+            is CocktailAction.ToggleLike -> toggleLike(action.id, action.liked)
             is CocktailAction.Search -> search(action.searchQuery)
             is CocktailAction.UpdateSearch -> updateSearch(action.text)
         }
@@ -36,26 +37,29 @@ class CocktailViewModel @Inject constructor(
         search("a")
     }
 
-    private fun toggleLike(id: String) {
-        state = state.copy(
-            cocktailListState = CocktailListState(
-                cocktails = state.cocktailListState.cocktails.map {
-                    if(id == it.id) {
-                        return@map it.copy(
-                            id = it.id,
-                            name = it.name,
-                            isLiked = !it.isLiked
-                        )
+    private fun toggleLike(id: String, liked: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            cocktailRepository.saveLike(id, liked)
+            state = state.copy(
+                cocktailListState = CocktailListState(
+                    cocktails = state.cocktailListState.cocktails.map {
+                        if(id == it.id) {
+                            return@map it.copy(
+                                id = it.id,
+                                name = it.name,
+                                isLiked = !it.isLiked
+                            )
+                        }
+                        it
                     }
-                    it
-                }
+                )
             )
-        )
+        }
     }
 
     private fun search(searchQuery: String) {
         state = state.copy(isLoading = true)
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             when(val cocktailData = cocktailRepository.findByFirstLetter(searchQuery)) {
                 is UIState.SUCCESS -> {
                     Log.d("Search", "SUCCESS")
@@ -85,7 +89,7 @@ class CocktailViewModel @Inject constructor(
                     )
                 }
                 is UIState.ERROR -> {
-                    Log.d("Search", "ERROR")
+                    Log.d("Search", cocktailData.error)
                     state = state.copy(
                         isLoading = false,
                         cocktailListState = CocktailListState(

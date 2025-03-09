@@ -5,4 +5,5 @@ import com.example.cocktailmvi.util.UIState
 
 interface CocktailRepository {
     suspend fun findByFirstLetter(searchQuery: String): UIState<List<Cocktail>>
+    suspend fun saveLike(id: String, liked: Boolean)
 }
