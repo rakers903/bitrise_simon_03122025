@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
             // TODO: Inform user that that your app will not show notifications.
         }
     }
-
+// changes
     private fun askNotificationPermission() {
         // This is only necessary for API level >= 33 (TIRAMISU)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
