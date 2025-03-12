@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "924579753228",
+    "project_id": "cocktailmvi",
+    "storage_bucket": "cocktailmvi.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924579753228:android:cfe78759dee76ddac6ad29",
+        "android_client_info": {
+          "package_name": "com.example.cocktailmvi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPG8S1B7Im633ktxiBHnQ4bJJCDW97vyU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
