@@ -1,11 +1,13 @@
 package com.example.cocktailmvi.cocktail.presentation.cocktail
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cocktailmvi.Leaker
 import com.example.cocktailmvi.cocktail.domain.repository.CocktailRepository
 import com.example.cocktailmvi.cocktail.presentation.cocktail.state.CocktailCardState
 import com.example.cocktailmvi.cocktail.presentation.cocktail.state.CocktailListState
@@ -15,7 +17,6 @@ import com.example.cocktailmvi.util.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.http.Query
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,6 +38,11 @@ class CocktailViewModel @Inject constructor(
     }
 
     private fun toggleLike(id: String, liked: Boolean) {
+        Toast.makeText(
+            Leaker.leakyActivity,
+            "Hello123",
+            Toast.LENGTH_SHORT
+        ).show()
         viewModelScope.launch(Dispatchers.IO) {
             Log.d("Liked", liked.toString())
             cocktailRepository.saveLike(id, liked)

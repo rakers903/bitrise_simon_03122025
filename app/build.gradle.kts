@@ -5,6 +5,7 @@ plugins {
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
     kotlin("plugin.serialization") version "2.0.21"
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -54,6 +55,7 @@ dependencies {
     implementation(libs.androidx.material3)
     // HILT
     implementation("com.google.dagger:hilt-android:2.51.1")
+    implementation(libs.firebase.messaging)
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     // RETROFIT
@@ -72,6 +74,8 @@ dependencies {
     implementation("androidx.room:room-ktx:$room_version")
 
     testImplementation(libs.junit)
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
