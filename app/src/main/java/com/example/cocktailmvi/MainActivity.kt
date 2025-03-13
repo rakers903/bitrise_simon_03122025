@@ -35,7 +35,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        clearFCMToken()
+//        clearFCMToken()
+        //
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { token ->
+            Log.d("Token", token.result)
+        }
         askNotificationPermission()
         enableEdgeToEdge()
         setContent {
